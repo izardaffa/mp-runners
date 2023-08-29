@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merah Putih Runners</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body onload="loadData()">
+    <div class="container">
+        <!-- S:Home Section -->
+        <section id="home">
+            <div class="left">
+                <div class="btn-group">
+                    <button onclick="startGame()">PLAY</button>
+                    <button onclick="document.getElementById('leaderboard').style.display = 'flex'">LEADERBOARD</button>
+                    <button onclick="document.getElementById('credit').style.display = 'flex'">CREDIT</button>
+                </div>
+            </div>
+            <div class="right">
+                <div class="hero">
+                    <h1>Merah Putih Runners</h1>
+                    <img src="assets/img/run1.png" alt="Run 1">
+                </div>
+            </div>
+            <div class="top">
+                <div class="btn-group">
+                    <button id="soundOff" onclick="stopBGM()">BGM: ON</button>
+                    <button id="soundOn" onclick="playBGM()">BGM: OFF</button>
+                    <button onclick="document.getElementById('help').style.display = 'flex'">Help</button>
+                </div>
+            </div>
+        </section>
+        <!-- E:Home Section -->
+
+        <!-- S:Leaderboard Modal -->
+        <div id="leaderboard" class="modal">
+            <div class="modal-container">
+                <h2>Leaderboard</h2>
+                <table class="leaderboard-table">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </table>
+                <span class="close-modal" onclick="document.getElementById('leaderboard').style.display = 'none'">X</span>
+            </div>
+        </div>
+        <!-- E:Leaderboard Modal -->
+
+        <!-- S:Credit Modal -->
+        <div id="credit" class="modal">
+            <div class="modal-container">
+                <h2>Credit</h2>
+                <ul class="help-list">
+                    <li>Fonts: <a href="https://www.dafont.com/visitor.font">Dafont.com</a></li>
+                    <li>Gambar Rumah 1 : <a href="https://www.pngwing.com/en/free-png-zcovb">PNGWING</a></li>
+                    <li>Gambar Rumah 2 : <a href="https://www.pngwing.com/en/free-png-ynach">PNGWING</a></li>
+                    <li>Gambar Rumah 3 : <a href="https://www.pngwing.com/en/free-png-dpclu">PNGWING</a></li>
+                    <li>Sound: <a href="https://youtube.com/playlist?list=PLxhhl-2J_GZRrpA70G3Nk8WNoxUNlX5Zl">Youtube</a></li>
+                </ul>
+                <span class="close-modal" onclick="document.getElementById('credit').style.display = 'none'">X</span>
+            </div>
+        </div>
+        <!-- E:Credit Modal -->
+
+        <!-- S:Help Modal -->
+        <div id="help" class="modal">
+            <div class="modal-container">
+                <h2>Help</h2>
+                <ul class="help-list">
+                    <li>
+                        Klik 'Play' untuk memulai permainan.
+                    </li>
+                    <!-- <li>
+                        Gunakan tombol panah kanan/kiri untuk menggerakkan karakter.
+                    </li> -->
+                    <li>
+                        Jika kamu bermain di PC/Laptop, gunakan panah kanan/kiri untuk menggerakkan karakter.
+                    </li>
+                    <li>
+                        Jika kamu bermain di Mobile/Smartphone, tap sisi kanan/kiri layar untuk menggerakkan karakter.
+                    </li>
+                    <li>
+                        Izinkan browser kamu untuk memainkan audio.
+                    </li>
+                </ul>
+                <span class="close-modal" onclick="document.getElementById('help').style.display = 'none'">X</span>
+            </div>
+        </div>
+        <!-- E:Help Modal -->
+
+        <button id="btn-pause" onclick="pauseGame()">ii</button>
+        
+        <!-- S:Pause Modal -->
+        <div id="pause" class="modal">
+            <div class="modal-container">
+                <h2>Pause</h2>
+                <div class="btn-group">
+                    <button onclick="resumeGame()">Resume</button>
+                    <button onclick="location.href = 'index.html'">Exit</button>
+                </div>
+            </div>
+        </div>
+        <!-- E:Pause Modal -->
+
+        <!-- S:Game Over Modal -->
+        <div id="game-over" class="modal">
+            <div class="modal-container">
+                <h2>Game Over</h2>
+                <div class="credit-list">
+                    <span id="final-score"></span>
+                </div>
+                <div class="btn-group">
+                    <button onclick="location.href = 'index.html'">Ok</button>
+                </div>
+            </div>
+        </div>
+        <!-- E:Game Over Modal -->
+
+        <!-- Game Controller -->
+        <div class="game-controller">
+            <button onclick="moveleft()"> < </button>
+            <button onclick="moveright()"> > </button>
+            <!-- <span onclick="moveleft()"> < </span>
+            <span onclick="moveright()"> > </span> -->
+        </div>
+
+        <!-- Game Canvas -->
+        <!-- <canvas id="canvas" width="450" height="800"></canvas> -->
+        <canvas id="canvas"></canvas>
+
+        <!-- Game Assets -->
+        <div class="game-img">
+            <img src="assets/img/run1.png" alt="Run 1" id="run1">
+            <img src="assets/img/run2.png" alt="Run 2" id="run2">
+            <img src="assets/img/fall.png" alt="Fall" id="fall">
+            <img src="assets/img/shadow.png" alt="Shadow" id="shadow">
+            
+            <img src="assets/img/obstacle1.png" alt="Obstacle 1" id="obstacle1">
+            <img src="assets/img/obstacle2.png" alt="Obstacle 2" id="obstacle2">
+            <img src="assets/img/obstacle3.png" alt="Obstacle 3" id="obstacle3">
+            
+            <img src="assets/img/house1.png" alt="House 1" id="house1">
+            <img src="assets/img/house2.png" alt="House 2" id="house2">
+            <img src="assets/img/house3.png" alt="House 3" id="house3">
+
+            <img src="assets/img/flag1.png" alt="Flag 1" id="flag1">
+            <img src="assets/img/flag2.png" alt="Flag 2" id="flag2">
+
+            <!-- <audio src="assets/sound/coin.mp3" preload="auto" controls="none" id="coin"></audio>
+            <audio src="assets/sound/female-voice.mp3" preload="auto" controls="none" id="female-voice"></audio>
+            <audio src="assets/sound/footstep.mp3" preload="auto" controls="none" id="footstep"></audio>
+            <audio src="assets/sound/shocked.mp3" preload="auto" controls="none" id="shocked"></audio> -->
+            <audio src="assets/sound/hari-merdeka.mp3" id="bgm"></audio>
+        </div>
+    </div>
+
+    <!-- Game JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
