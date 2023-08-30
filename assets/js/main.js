@@ -130,15 +130,15 @@ function updateGameArea() {
         playBGM()
     }
 
-    if (score > 100) {
+    if (score > 50) {
         speed = 5
-    } else if (score > 80) {
-        speed = 4
-    } else if (score > 60) {
-        speed = 3
     } else if (score > 40) {
-        speed = 2
+        speed = 4
+    } else if (score > 30) {
+        speed = 3
     } else if (score > 20) {
+        speed = 2
+    } else if (score > 10) {
         speed = 1
     } else {
         speed = 0
@@ -171,10 +171,10 @@ function updateGameArea() {
                 player.y += myGameArea.canvas.height
                 myGameArea.stop()
             }
-            updateData(score)
+            isHighScore = updateData(score)
             footstep.stop()
             gameOverSound.play()
-            document.getElementById('final-score').innerHTML = 'Score: ' + score
+            document.getElementById('final-score').innerHTML = isHighScore
             document.getElementById('game-over').style.display = 'flex'
             document.getElementById('btn-pause').style.display = 'none'
         }
@@ -319,15 +319,15 @@ function loadData() {
         console.log('data sudah ada')
     } else {
         var leaderboard = [
-            { id: 1, name: 'Anton', score: 2200 },
-            { id: 2, name: 'Ahmad', score: 1200 },
-            { id: 3, name: 'David', score: 900 },
-            { id: 4, name: 'Bilbo', score: 700 },
-            { id: 5, name: 'Victor', score: 600 },
-            { id: 6, name: 'Nicolas', score: 500 },
-            { id: 7, name: 'Tono', score: 450 },
-            { id: 8, name: 'Radian', score: 300 },
-            { id: 9, name: 'Paul', score: 150 },
+            { id: 1, name: 'Anton', score: 200 },
+            { id: 2, name: 'Ahmad', score: 180 },
+            { id: 3, name: 'David', score: 160 },
+            { id: 4, name: 'Bilbo', score: 140 },
+            { id: 5, name: 'Victor', score: 120 },
+            { id: 6, name: 'Nicolas', score: 100 },
+            { id: 7, name: 'Tono', score: 80 },
+            { id: 8, name: 'Radian', score: 40 },
+            { id: 9, name: 'Paul', score: 20 },
             { id: 10, name: 'You', score: 0 },
         ]
         
@@ -370,15 +370,16 @@ function updateData(newScore) {
     targetItemIndex = parsedData.findIndex(function(item) {
         return item.id === 10
     })
-
-    if(targetItemIndex !== -1) {
-        parsedData[targetItemIndex].score = newScore
-
-        localStorage.setItem('leaderboard', JSON.stringify(parsedData))
-
-        console.log('Succesfull')
+    
+    if(newScore > parsedData[targetItemIndex].score) {
+        if(targetItemIndex !== -1) {
+            parsedData[targetItemIndex].score = newScore
+            
+            localStorage.setItem('leaderboard', JSON.stringify(parsedData))
+        }
+        return 'New High Score: ' + newScore
     } else {
-        console.log('Unsuccesfull')
+        return 'Score: ' + newScore
     }
 }
 
