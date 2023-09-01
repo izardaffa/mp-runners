@@ -14,10 +14,11 @@ body {
     background-color: #101010;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 98vh;
 }
 
 .container {
-    margin-top: 5rem;
     width: 800px;
     height: 450px;
     background-color: white;
@@ -203,6 +204,10 @@ th, td {
 }
 
 @media screen and (max-width: 767px) {
+    body {
+        height: auto;
+    }
+
     .container {
         margin-top: 0;
         width: 450px;
