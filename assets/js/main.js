@@ -126,7 +126,7 @@ let frameNo = 0
 let speed = 0
 
 function updateGameArea() {
-    if (localStorage.getItem('sound') == true) {
+    if (localStorage.getItem('mp-runners-sound') == true) {
         playBGM()
     }
 
@@ -312,10 +312,10 @@ function everyinterval(n) {
 }
 
 function loadData() {
-    var storedData = localStorage.getItem('leaderboard')
+    var storedData = localStorage.getItem('mp-runners-leaderboard')
     var parsedData = JSON.parse(storedData)
 
-    if (localStorage.getItem('leaderboard')) {
+    if (localStorage.getItem('mp-runners-leaderboard')) {
         console.log('data sudah ada')
     } else {
         var leaderboard = [
@@ -331,8 +331,8 @@ function loadData() {
             { id: 10, name: 'You', score: 0 },
         ]
         
-        localStorage.setItem('leaderboard', JSON.stringify(leaderboard))
-        localStorage.setItem('sound', false)
+        localStorage.setItem('mp-runners-leaderboard', JSON.stringify(leaderboard))
+        localStorage.setItem('mp-runners-sound', false)
         console.log('data berhasil dimuat')
     }
 
@@ -364,7 +364,7 @@ function loadData() {
 }
 
 function updateData(newScore) {
-    var storedData = localStorage.getItem('leaderboard')
+    var storedData = localStorage.getItem('mp-runners-leaderboard')
     var parsedData = JSON.parse(storedData)
     
     targetItemIndex = parsedData.findIndex(function(item) {
@@ -375,7 +375,7 @@ function updateData(newScore) {
         if(targetItemIndex !== -1) {
             parsedData[targetItemIndex].score = newScore
             
-            localStorage.setItem('leaderboard', JSON.stringify(parsedData))
+            localStorage.setItem('mp-runners-leaderboard', JSON.stringify(parsedData))
         }
         return 'New High Score: ' + newScore
     } else {
@@ -404,14 +404,14 @@ function playBGM() {
     bgm.play()
     document.getElementById('soundOn').style.display = 'none'
     document.getElementById('soundOff').style.display = 'inline-block'
-    localStorage.setItem('sound', true)
+    localStorage.setItem('mp-runners-sound', true)
 }
 
 function stopBGM() {
     bgm.pause()
     document.getElementById('soundOff').style.display = 'none'
     document.getElementById('soundOn').style.display = 'inline-block'
-    localStorage.setItem('sound', false)
+    localStorage.setItem('mp-runners-sound', false)
 }
 
 // playBGM()
